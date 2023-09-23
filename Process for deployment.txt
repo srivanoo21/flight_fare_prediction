@@ -1,0 +1,23 @@
+from Anaconda prompt open command prompt and enter below command:
+- conda create -n flightfare python=3.7
+
+Once it is installed then we have to enter below command to activate :
+- activate flightfare
+
+Then go to the full link in which our project is kept using:
+- cd C:\Users\Anoop Srivastava\Project_Machine_Learning\Completed projects\Live Projects\Flight Fare Prediction
+
+Then once we have full link then we can enter below command into command prompt and it got started from same location:
+- Jupyter notebook
+
+Perform the coding and create the model.
+
+Again go to command prompt and 
+- activate flightfare
+
+Then again go to the full link and enter below command:
+- pip freeze --all > requirements.txt
+
+Now create front-end (Flask)
+
+Deploy through Heroku
