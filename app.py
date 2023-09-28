@@ -1,14 +1,19 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+from src.flight_fare_prediction.logger import logging
+from src.flight_fare_prediction.exception import CustomException
+from src.flight_fare_prediction.components.data_ingestion import DataIngestion
+from src.flight_fare_prediction.components.data_ingestion import DataIngestionConfig
 from flask import Flask, request, render_template
 from flask_cors import cross_origin
 import sklearn
 import pickle
 import pandas as pd
+import sys
 
 app = Flask(__name__)
-model = pickle.load(open('flight_rf.pkl', 'rb'))
+model = pickle.load(open('model/flight_rf.pkl', 'rb'))
 
 @app.route('/')
 @cross_origin()
@@ -279,7 +284,7 @@ def predict():
             d_New_Delhi = 0
   
         prediction = model.predict([[Total_Stops, Journey_day, Journey_month, Dep_hour, Dep_min, Arrival_hour, Arrival_min, dur_hour, dur_min, Air_India, GoAir, Indigo, Jet_Airways, Jet_Airways_Business, Multiple_carriers, Multiple_carriers_Premium_economy, SpiceJet, Trujet, Vistara, Vistara_Premium_economy, s_Chennai, s_Delhi, s_Kolkata, s_Mumbai, d_Cochin, d_Delhi, d_Hyderabad, d_Kolkata, d_New_Delhi]])
-        print("Prediction is now completed...")    
+        logging.info("Prediction is now completed...")
         output = round(prediction[0], 2)
         
         return render_template('home.html', prediction_text='Your flight price is {}'.format(output))
@@ -287,4 +292,13 @@ def predict():
     return render_template('home.html')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000)
+    logging.info("The execution has started")
+    
+    try:
+        data_ingestion = DataIngestion()
+        data_ingestion.initiate_data_ingestion()
+    except Exception as e:
+        logging.info("Custom Exception")
+        raise CustomException(e, sys)
+    
+    #app.run(host='0.0.0.0', port=8000)

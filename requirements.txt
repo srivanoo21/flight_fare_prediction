@@ -20,5 +20,8 @@ threadpoolctl==3.2.0
 tzdata==2023.3
 Werkzeug==2.3.7
 zipp==3.17.0
+mysql-connector-python
+pymysql
+python-dotenv
 
 #-e .
