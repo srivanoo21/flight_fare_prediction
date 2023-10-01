@@ -5,6 +5,8 @@ from src.flight_fare_prediction.logger import logging
 from src.flight_fare_prediction.exception import CustomException
 from src.flight_fare_prediction.components.data_ingestion import DataIngestion
 from src.flight_fare_prediction.components.data_ingestion import DataIngestionConfig
+from src.flight_fare_prediction.components.data_transformation import DataTransformationConfig
+from src.flight_fare_prediction.components.data_transformation import DataTransformation
 from flask import Flask, request, render_template
 from flask_cors import cross_origin
 import sklearn
@@ -291,12 +293,19 @@ def predict():
     
     return render_template('home.html')
 
+
+
 if __name__ == "__main__":
     logging.info("The execution has started")
     
     try:
         data_ingestion = DataIngestion()
-        data_ingestion.initiate_data_ingestion()
+        train_path, test_path = data_ingestion.initiate_data_ingestion()
+        
+        #data_transformation_config = DataTransformationConfig()
+        data_transformation = DataTransformation()
+        data_transformation.initiate_data_transformation(train_path, test_path)
+
     except Exception as e:
         logging.info("Custom Exception")
         raise CustomException(e, sys)

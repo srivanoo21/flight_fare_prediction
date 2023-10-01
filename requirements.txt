@@ -23,5 +23,6 @@ zipp==3.17.0
 mysql-connector-python
 pymysql
 python-dotenv
+seaborn
 
 #-e .

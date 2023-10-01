@@ -20,7 +20,9 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         try:
             ## reading code from mysql
-            df1, df2 = read_sql_data()
+            #df1, df2 = read_sql_data()
+            df1 = pd.read_csv(os.path.join('dataset', 'Data_Train.csv'))
+            df2 = pd.read_csv(os.path.join('dataset', 'Data_Test.csv'))
             logging.info("Reading completed from mysql database")
             
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
