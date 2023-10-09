@@ -311,7 +311,6 @@ if __name__ == "__main__":
         model_trainer = ModelTrainer()
         r2_square = model_trainer.initiate_model_trainer(train_data, test_data)
         print(r2_square)
-        
 
     except Exception as e:
         logging.info("Custom Exception")
