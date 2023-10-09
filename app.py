@@ -7,6 +7,8 @@ from src.flight_fare_prediction.components.data_ingestion import DataIngestion
 from src.flight_fare_prediction.components.data_ingestion import DataIngestionConfig
 from src.flight_fare_prediction.components.data_transformation import DataTransformationConfig
 from src.flight_fare_prediction.components.data_transformation import DataTransformation
+from src.flight_fare_prediction.components.model_trainer import ModelTrainerConfig
+from src.flight_fare_prediction.components.model_trainer import ModelTrainer
 from flask import Flask, request, render_template
 from flask_cors import cross_origin
 import sklearn
@@ -302,9 +304,14 @@ if __name__ == "__main__":
         data_ingestion = DataIngestion()
         train_path, test_path = data_ingestion.initiate_data_ingestion()
         
-        #data_transformation_config = DataTransformationConfig()
         data_transformation = DataTransformation()
-        data_transformation.initiate_data_transformation(train_path, test_path)
+        train_data, test_data = data_transformation.initiate_data_transformation(train_path, test_path)
+
+        # Model Training
+        model_trainer = ModelTrainer()
+        r2_square = model_trainer.initiate_model_trainer(train_data, test_data)
+        print(r2_square)
+        
 
     except Exception as e:
         logging.info("Custom Exception")

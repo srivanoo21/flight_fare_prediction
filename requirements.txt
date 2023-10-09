@@ -24,5 +24,6 @@ mysql-connector-python
 pymysql
 python-dotenv
 seaborn
+xgboost
 
 #-e .

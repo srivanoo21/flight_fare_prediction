@@ -74,11 +74,11 @@ class DataTransformation:
             logging.info("Date time columns has been encoded for training data")
 
             Airline = train_data[['Airline']]
-            Airline = pd.get_dummies(Airline, drop_first=True)
+            Airline = pd.get_dummies(Airline, drop_first=True, dtype=int)
             Source = train_data[['Source']]
-            Source = pd.get_dummies(Source, drop_first=True)
+            Source = pd.get_dummies(Source, drop_first=True, dtype=int)
             Destination = train_data[['Destination']]
-            Destination = pd.get_dummies(Destination, drop_first=True)
+            Destination = pd.get_dummies(Destination, drop_first=True, dtype=int)
             
             train_data.drop(labels=['Additional_Info', 'Route'], axis=1, inplace=True)
 
@@ -146,11 +146,11 @@ class DataTransformation:
 
             # Categorical Data
             Airline = test_data[['Airline']]
-            Airline = pd.get_dummies(Airline, drop_first=True)
+            Airline = pd.get_dummies(Airline, drop_first=True, dtype=int)
             Source = test_data[['Source']]
-            Source = pd.get_dummies(Source, drop_first=True)
+            Source = pd.get_dummies(Source, drop_first=True, dtype=int)
             Destination = test_data[['Destination']]
-            Destination = pd.get_dummies(Destination, drop_first=True)
+            Destination = pd.get_dummies(Destination, drop_first=True, dtype=int)
 
             test_data.drop(labels=['Additional_Info', 'Route'], axis=1, inplace=True)
 
@@ -169,8 +169,12 @@ class DataTransformation:
             data_test.drop(labels=['Airline', 'Source', 'Destination'], axis=1, inplace=True)
 
             logging.info("Categorical columns has now been encoded")
+
+            
             logging.info(f"Shape of testing data: , {data_test.shape}")
 
+
+            # To do: add all the plots and save it in a separate folder
 
             logging.info("Now returning the transformed training and testing dataset")
 
